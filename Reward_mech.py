@@ -22,7 +22,7 @@ b = 0.1
 c = 0.1
 base_exponent = 1.2
 time_conversion = 86400
-time_chunk = 3
+time_chunk = 2
 profit_threshold = 5
 ITM_reward = 100
 endurance_time = 15
@@ -116,19 +116,19 @@ df[['sender_id', 'stremia_multiplied_1', 'stremia_multiplied_2', 'stremia_buyers
 fig, axs = plt.subplots(1, 2, figsize=(12, 5))
 
 # First subplot
-axs[0].scatter( df['total_legs'], df['total_points_2'])
-axs[0].set_xlabel('Liquidity')
-axs[0].set_ylabel('Position Points')
-axs[0].set_title('Option2: Liquidity vs Position points')
+axs[0].scatter( df['stremia'], df['total_points_1'])
+axs[0].set_xlabel('Stremia')
+axs[0].set_ylabel('Points')
+axs[0].set_title('Stremia vs Points')
 axs[0].grid(True)
 axs[0].set_xscale('log')  # Set x-axis scale to log
 axs[0].set_yscale('log')  # Set y-axis scale to log
 
 # Second subplot
-axs[1].scatter(df['time'], df['points_based_2'])
-axs[1].set_xlabel('position')
-axs[1].set_ylabel('holding tim')
-axs[1].set_title('Position vs hold time')
+axs[1].scatter(df['total_legs'], df['stremia'])
+axs[1].set_xlabel('legs amount')
+axs[1].set_ylabel('stremia')
+axs[1].set_title('leg amount vs stremia')
 axs[1].grid(True)
 axs[1].set_xscale('log')  # Set x-axis scale to log
 axs[1].set_yscale('log')  # Set y-axis scale to log
@@ -143,7 +143,7 @@ plt.show()
 # Graph 2 ##########
 
 # Create the scatter plot
-plt.scatter(df['time'], df['total_points_2'], c=df['total_legs'], cmap='viridis')
+plt.scatter(df['time'], df['total_points_1'], c=df['total_legs'], cmap='viridis')
 
 # Set labels and title
 plt.xlabel('Time')
@@ -158,6 +158,23 @@ plt.yscale('log')
 # Show plot
 plt.show()
 
+
+# Graph 2 ##########
+
+# Create the scatter plot
+plt.scatter(df['time'], df['total_points_1'])
+
+# Set labels and title
+plt.xlabel('Time')
+plt.ylabel('Total Points')
+plt.title('Total points vs time')
+
+# Set log scale for x and y axes
+plt.xscale('log')
+plt.yscale('log')
+
+# Show plot
+plt.show()
 
 ## Graph 3 ############
 
