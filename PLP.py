@@ -1,12 +1,21 @@
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
 import numpy as np
 import math
-def pointsPLP(initial_timestamp, final_timestamp):
 
+def pointsPLP(initial_timestamp, final_timestamp):
+    """
+    Calculates points for PLP from deposits and withdrawals CSV.
+
+    Parameters:
+    - initial_timestamp: starting point for points calculation
+    - final_timestamp: final oint for points calculation
+
+    Returns:
+    - A list of points for each Token 
+    """
     # Variables
-    a = 1.5
+    a = 0.0001
 
     # Load deposits and withdrawals data from CSV files
     deposits_df = pd.read_csv('deposits.csv').fillna(0)  # Replace NaN with 0
@@ -82,15 +91,16 @@ def pointsPLP(initial_timestamp, final_timestamp):
             f'net_balance_{token_1}': net_balance_token1.values,
             f'points_{token_1}': points_token1.values
         }),
-        pd.DataFrame({'total_points': total_points,
-                      'total_points_2': total_points2})
+        pd.DataFrame({'owner_id': total_points.index,
+                      'total_points': total_points.values,
+                      'total_points_2': total_points2.values})
     ], ignore_index=True)
 
     # Aggregate rows with the same 'owner_id' by summing up their values
     result_df = result_df.groupby('owner_id').sum().reset_index()
 
     # Check if the output file already exists
-    output_file = 'output.csv'
+    output_file = 'output-PLP.csv'
     if os.path.exists(output_file):
         # Append the result to the existing output file
         existing_df = pd.read_csv(output_file)
@@ -100,36 +110,9 @@ def pointsPLP(initial_timestamp, final_timestamp):
     # Save the result to a CSV file
     result_df.to_csv(output_file, index=False)
 
-
-    # First subplot
-    fig, axs = plt.subplots(1, 2, figsize=(12, 5))
-    axs[0].scatter( total_net_balance.values, total_points.values)
-    axs[0].set_xlabel('Liquidity')
-    axs[0].set_ylabel('Points')
-    axs[0].set_title('Option1: Liquidity vs points')
-    axs[0].grid(True)
-    axs[0].set_xscale('log')  # Set x-axis scale to log
-    axs[0].set_yscale('log')  # Set y-axis scale to log
-
-    # Second subplot
-    axs[1].scatter( total_net_balance.values, total_points3.values)    
-    axs[1].set_xlabel('Liquidity')
-    axs[1].set_ylabel('Points')
-    axs[1].set_title('Option3: Liquidity vs points')
-    axs[1].grid(True)
-    axs[1].set_xscale('log')  # Set x-axis scale to log
-    axs[1].set_yscale('log')  # Set y-axis scale to log
-
-    # Adjust layout to prevent overlap
-    plt.tight_layout()
-
-    # Show plot
-    plt.show()
-
-
 # Input timestamp
 initial_timestamp = 1702543181
-final_timestamp = 1710887346
+final_timestamp = 1708508691
 
 pointsPLP(initial_timestamp, final_timestamp)
 
