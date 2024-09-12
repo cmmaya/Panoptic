@@ -13,7 +13,8 @@ $$P_\text{PLP}=\sum_{j\in\text{Tokens}} \int_{0}^{T}a_j(t) \frac{A_j(t)}{\sqrt{\
 
 Where $P_\text{PLP}$ is points given, $A_j$ the amount of shares of token $j$, $a(t_j)>0$  is a factor depending on the phase and $t_j$ is the duration that such liquidity for token $j$ has been deployed.
 
-![image](https://hackmd.io/_uploads/SJKFBoTxC.png)
+![image](https://github.com/user-attachments/assets/17c14573-2ba1-4925-80bb-fb0b3907e18b)
+
 **Figure 1**: net balance deposited vs total points given in log scale
 ## Stremia-based
 
